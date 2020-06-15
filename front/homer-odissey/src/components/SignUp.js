@@ -7,7 +7,8 @@ export default class SignUp extends Component {
             email: "mon@email.com",
             password: "monPassw0rd",
             name: "James",
-            lastname: "Bond"
+            lastname: "Bond",
+            flash: ""
         }
         this.updateH1Field = this.updateH1Field.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -18,6 +19,20 @@ export default class SignUp extends Component {
     handleSubmit(event) {
         console.log('A form was submitted: ' + JSON.stringify(this.state, 1, 1));
         event.preventDefault();
+        fetch("/auth/signup",
+            {
+                method: 'POST',
+                headers: new Headers({
+                    'Content-Type': 'application/json'
+                }),
+                body: JSON.stringify(this.state, 1, 1),
+            })
+            .then(res => res.json())
+            .then(
+                res => this.setState({ "flash": res.flash }),
+                err => this.setState({ "flash": err.flash })
+            )
+
     }
     render() {
         return (
