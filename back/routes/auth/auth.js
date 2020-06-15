@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express()
 const router = express.Router();
-const connection = require("../../config")
+const connection = require("../../helpers/db");
 const bodyParser = require("body-parser")
 app.use(bodyParser.urlencoded({
     extended: true
